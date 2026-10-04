@@ -4,7 +4,7 @@ import Groq from "groq-sdk";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const app = express();
 
