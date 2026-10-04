@@ -6,6 +6,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// When running locally from the server folder,
+// load the .env file from the project root.
+if (!process.env.GROQ_API_KEY) {
+  dotenv.config({ path: "../.env" });
+}
 const app = express();
 
 // ===============================
