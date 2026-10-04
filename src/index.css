@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --bg-color: #020617;
+  --text-color: #ffffff;
+  --card-bg: #0f172a;
+  --accent: #38bdf8;
+  /* cards */
+  background: var(--card-bg);
+
+  /* accent color */
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+[data-theme="light"] {
+  --bg-color: #f8fafc;
+  --text-color: #020617;
+  --card-bg: #ffffff;
+  --accent: #2563eb;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Segoe UI", sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+/* ===== Scroll Reveal (CSS-only) ===== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: revealUp 0.8s ease forwards;
+}
+
+/* Delays for staggered sections */
+.reveal.delay-1 {
+  animation-delay: 0.15s;
+}
+
+.reveal.delay-2 {
+  animation-delay: 0.3s;
+}
+
+.reveal.delay-3 {
+  animation-delay: 0.45s;
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+section {
+  scroll-margin-top: 80px;
+}

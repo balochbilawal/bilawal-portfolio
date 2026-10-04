@@ -1,0 +1,386 @@
+.projects {
+  background: #020617;
+  padding: 100px 40px;
+  color: white;
+}
+
+.projects h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+.projects-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+}
+
+/* CARD */
+.project-card {
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border-radius: 14px;
+  padding: 30px;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: projectReveal 0.7s ease forwards;
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* TEXT */
+.project-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.project-card p {
+  color: #cbd5f5;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.project-card span {
+  color: #38bdf8;
+  font-size: 14px;
+}
+
+/* HOVER */
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(56, 189, 248, 0.25);
+}
+
+/* KEYFRAMES */
+@keyframes projectReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .projects {
+    padding: 70px 20px;
+  }
+}
+
+/* 🖥️ Desktop */
+@media (min-width: 768px) {
+  .projects {
+    padding: 100px 40px;
+  }
+}
+/* ========================= */
+/* CASE STUDY SECTIONS */
+/* ========================= */
+
+.case-study-section {
+  margin-bottom: 40px;
+}
+
+.case-study-section h4 {
+  color: #ffffff;
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+
+.case-study-section p {
+  color: #cbd5e1;
+  line-height: 1.8;
+  max-width: 900px;
+}
+
+/* ========================= */
+/* RAG ARCHITECTURE */
+/* ========================= */
+
+.architecture-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.architecture-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: #111827;
+  border: 1px solid #263244;
+
+  padding: 12px 15px;
+
+  border-radius: 10px;
+
+  transition: 0.3s ease;
+}
+
+.architecture-step:hover {
+  border-color: #6c63ff;
+  transform: translateY(-3px);
+}
+
+.architecture-step span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 25px;
+  height: 25px;
+
+  background: #6c63ff;
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.architecture-step p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+/* ========================= */
+/* TECHNOLOGY BADGES */
+/* ========================= */
+
+.technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.technology-list span {
+  background: rgba(108, 99, 255, 0.1);
+
+  border: 1px solid rgba(108, 99, 255, 0.3);
+
+  color: #c4b5fd;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+
+  transition: 0.3s ease;
+}
+
+.technology-list span:hover {
+  background: rgba(108, 99, 255, 0.2);
+
+  transform: translateY(-2px);
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width: 650px) {
+  .architecture-flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .architecture-step {
+    width: 100%;
+  }
+
+  .case-study-section {
+    margin-bottom: 30px;
+  }
+}
+/* ========================= */
+/* ANIMATED RAG PIPELINE */
+/* ========================= */
+
+.architecture-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.architecture-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* PIPELINE NODE */
+
+.architecture-step {
+  width: min(600px, 100%);
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 16px 20px;
+
+  background: linear-gradient(145deg, #111827, #0b1120);
+
+  border: 1px solid rgba(108, 99, 255, 0.25);
+
+  border-radius: 12px;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+
+  animation: ragNode 0.7s ease both;
+}
+
+/* NUMBER */
+
+.architecture-step span {
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #6c63ff, #4f46e5);
+
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow: 0 0 18px rgba(108, 99, 255, 0.3);
+}
+
+/* TEXT */
+
+.architecture-step p {
+  margin: 0;
+
+  color: #e2e8f0;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  line-height: 1.5;
+}
+
+/* HOVER */
+
+.architecture-step:hover {
+  transform: translateX(8px);
+
+  border-color: #6c63ff;
+
+  box-shadow: 0 10px 35px rgba(108, 99, 255, 0.18);
+}
+
+/* ARROW */
+
+.architecture-arrow {
+  position: relative;
+
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #38bdf8;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  animation: arrowPulse 1.5s ease-in-out infinite;
+}
+
+/* GLOW LINE */
+
+.architecture-arrow::before {
+  content: "";
+
+  position: absolute;
+
+  width: 2px;
+  height: 32px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(56, 189, 248, 0),
+    #38bdf8,
+    rgba(56, 189, 248, 0)
+  );
+
+  z-index: -1;
+}
+
+/* NODE ANIMATION */
+
+@keyframes ragNode {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ARROW ANIMATION */
+
+@keyframes arrowPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .architecture-step {
+    padding: 14px 15px;
+  }
+
+  .architecture-step p {
+    font-size: 13px;
+  }
+
+  .architecture-step span {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .architecture-arrow {
+    height: 38px;
+  }
+}
