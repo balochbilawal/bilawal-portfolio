@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import Groq from "groq-sdk";
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import { Resend } from "resend";
 
 dotenv.config();
 
@@ -11,6 +11,7 @@ dotenv.config();
 if (!process.env.GROQ_API_KEY) {
   dotenv.config({ path: "../.env" });
 }
+
 const app = express();
 
 // ===============================
@@ -25,15 +26,15 @@ app.use(express.json());
 // ===============================
 
 if (!process.env.GROQ_API_KEY) {
-  console.error("❌ GROQ_API_KEY is missing from .env");
+  console.error("❌ GROQ_API_KEY is missing");
+}
+
+if (!process.env.RESEND_API_KEY) {
+  console.error("❌ RESEND_API_KEY is missing");
 }
 
 if (!process.env.GMAIL_USER) {
-  console.error("❌ GMAIL_USER is missing from .env");
-}
-
-if (!process.env.GMAIL_APP_PASSWORD) {
-  console.error("❌ GMAIL_APP_PASSWORD is missing from .env");
+  console.error("❌ GMAIL_USER is missing");
 }
 
 // ===============================
@@ -45,16 +46,10 @@ const groq = new Groq({
 });
 
 // ===============================
-// Gmail / Nodemailer
+// Resend Email
 // ===============================
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ===============================
 // Home Route
@@ -89,8 +84,8 @@ app.post("/api/chat", async (req, res) => {
           content: `
 You are Bilawal's AI Portfolio Assistant.
 
-Your job is to answer questions about Bilawal, his skills, projects,
-education, technologies, and portfolio.
+Your job is to answer questions about Bilawal, his skills,
+projects, technologies, education, and portfolio.
 
 Bilawal Baloch is a Full-Stack Developer and AI Enthusiast.
 
@@ -130,9 +125,9 @@ Tools:
 Major Project:
 LawEase – AI Legal Assistant.
 
-LawEase is an AI-based legal guidance platform designed to
-help users understand Pakistani legal information in simplified
-English and Urdu.
+LawEase is an AI-based legal guidance platform designed
+to help users understand Pakistani legal information in
+simplified English and Urdu.
 
 LawEase uses:
 - RAG
@@ -148,15 +143,16 @@ LawEase uses:
 - Flask
 
 Bilawal worked on the React frontend, AI/RAG workflow,
-document processing, semantic retrieval, and frontend/backend integration.
+document processing, semantic retrieval, and
+frontend/backend integration.
 
 Important rules:
 - Answer clearly and professionally.
 - Keep answers concise unless the user asks for details.
-- Do not invent Bilawal's experience, education, certifications,
-  companies, achievements, or technologies.
-- If information is not available, say that it is not currently
-  listed in the portfolio.
+- Do not invent Bilawal's experience, education,
+  certifications, companies, achievements, or technologies.
+- If information is not available, say that it is not
+  currently listed in the portfolio.
 - You are an AI portfolio assistant, not Bilawal himself.
           `,
         },
@@ -191,7 +187,7 @@ Important rules:
 });
 
 // ===============================
-// Contact Form
+// Contact Form - Resend
 // ===============================
 
 app.post("/api/contact", async (req, res) => {
@@ -204,12 +200,11 @@ app.post("/api/contact", async (req, res) => {
       });
     }
 
-    await transporter.sendMail({
-      from: process.env.GMAIL_USER,
-      to: process.env.GMAIL_USER,
+    const { data, error } = await resend.emails.send({
+      from: "Bilawal Portfolio <onboarding@resend.dev>",
+      to: [process.env.GMAIL_USER],
       replyTo: email,
       subject: `Portfolio Contact: ${name}`,
-
       text: `
 Name: ${name}
 Email: ${email}
@@ -219,7 +214,17 @@ ${message}
       `,
     });
 
-    console.log(`✅ Contact message received from ${email}`);
+    if (error) {
+      console.error("========== RESEND ERROR ==========");
+      console.error(error);
+      console.error("==================================");
+
+      return res.status(500).json({
+        error: "Failed to send email",
+      });
+    }
+
+    console.log("✅ Email sent successfully:", data?.id);
 
     res.json({
       success: true,
