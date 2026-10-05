@@ -42,17 +42,20 @@ const Chatbot = () => {
         },
       ];
 
-      const response = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
+      const response = await fetch(
+        "https://bilawal-portfolio-production.up.railway.app/api/chat",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            messages: chatMessages,
+          }),
         },
-
-        body: JSON.stringify({
-          messages: chatMessages,
-        }),
-      });
+      );
 
       const data = await response.json();
 
